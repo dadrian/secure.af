@@ -1,7 +1,14 @@
 <html>
   <head>
+
     <link rel="stylesheet" type="text/css" href="clippy.css" media="all">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/virtual-keyboard/1.27.3/css/keyboard.min.css" media="all">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/virtual-keyboard/1.27.3/css/keyboard-dark.min.css" media="all">
+
     <script src="https://code.jquery.com/jquery-1.7.2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/virtual-keyboard/1.27.3/js/jquery.keyboard.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/virtual-keyboard/1.27.3/js/jquery.keyboard.extension-all.min.js"></script>
+
     <script src="clippy.min.js"></script>
     <script type="text/javascript">
       clippy.load('Clippy', function(agent) {
@@ -9,9 +16,20 @@
         agent.show();
         agent.speak("It looks like you're using an insecure browser. Have you considered Internet Explorer?");
       });
+
+      $(function(){
+	$('#keyboard').keyboard();
+      });
     </script>
   </head>
   <body>
+    <center>
+      <div style="border: 2px solid red">
+        <h2>Enter secure password</h2>
+        <input id="keyboard" type="text">
+      </div>
+    </center>
+ 
     <img src="img/norton.png"><br>
     <img src="img/lnc-certified.png"><br>
     <img src="img/HACKERSAFE.jpeg"><br>
