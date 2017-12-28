@@ -19,12 +19,12 @@
       // This only gets executed once per website use so the nonce can't be reused
       var nonce = "000000000000000000000000";
 
-      console.log("loading");
+      console.log("Decrypting secure checkmark");
       nacl_factory.instantiate(function (nacl) {
           var ciphertext = document.getElementById("checkmark").value;
-          var plaintext = nacl.crypto_secretbox_open(nacl.from_hex(ciphertext), nonce, nacl.encode_utf8(key));
-          document.getElementById("encrypted").insertAdjacentHTML("beforeend", nacl.decode_utf8(plaintext));
-          console.log(plaintext);
+          var plaintext = nacl.decode_utf8(nacl.crypto_secretbox_open(nacl.from_hex(ciphertext), nonce, nacl.encode_utf8(key)));
+          document.getElementById("encrypted").insertAdjacentHTML("beforeend", plaintext);
+          console.log("Decrypted: " + plaintext);
       });
       }
     </script>
