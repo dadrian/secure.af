@@ -1,5 +1,15 @@
 <html>
   <head>
+    <link rel="stylesheet" type="text/css" href="clippy.css" media="all">
+    <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+    <script src="clippy.min.js"></script>
+    <script type="text/javascript">
+      clippy.load('Clippy', function(agent) {
+        // Do anything with the loaded agent
+        agent.show();
+        agent.speak("It looks like you're using an insecure browser. Have you considered Internet Explorer?");
+      });
+    </script>
   </head>
   <body>
     <img src="img/norton.png"><br>
