@@ -21,9 +21,10 @@
 
       console.log("Decrypting secure checkmark");
       nacl_factory.instantiate(function (nacl) {
-          var ciphertext = document.getElementById("checkmark").value;
+          var _tmp = document.getElementById("encrypted");
+          var ciphertext = _tmp.dataset.ciphertext;
           var plaintext = nacl.decode_utf8(nacl.crypto_secretbox_open(nacl.from_hex(ciphertext), nonce, nacl.encode_utf8(key)));
-          document.getElementById("encrypted").insertAdjacentHTML("beforeend", plaintext);
+          _tmp.insertAdjacentHTML("beforeend", plaintext);
           console.log("Decrypted: " + plaintext);
       });
       }
@@ -31,8 +32,7 @@
   </head>
   <body onload="main()">
     <img src="img/lnc-certified.png"><br>
-    <input type="hidden" value="a059b2c6c69a51986b8e7e8bacced5ae80b74f2a777dc469812dfec687f3339917c79553155b32c26b5b061c031556f7" id="checkmark"></input>
-    <div id="encrypted"></div>
+    <div id="encrypted" data-ciphertext="a059b2c6c69a51986b8e7e8bacced5ae80b74f2a777dc469812dfec687f3339917c79553155b32c26b5b061c031556f7"></div>
     <img src="img/HACKERSAFE.jpeg"><br>
   </body>
 </html>
