@@ -1,13 +1,24 @@
 <html>
   <head>
+
     <link rel="stylesheet" type="text/css" href="clippy.css" media="all">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/virtual-keyboard/1.27.3/css/keyboard.min.css" media="all">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/virtual-keyboard/1.27.3/css/keyboard-dark.min.css" media="all">
+
     <script src="https://code.jquery.com/jquery-1.7.2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/virtual-keyboard/1.27.3/js/jquery.keyboard.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/virtual-keyboard/1.27.3/js/jquery.keyboard.extension-all.min.js"></script>
+
     <script src="clippy.min.js"></script>
     <script type="text/javascript">
       clippy.load('Clippy', function(agent) {
         // Do anything with the loaded agent
         agent.show();
         agent.speak("It looks like you're using an insecure browser. Have you considered Internet Explorer?");
+      });
+
+      $(function(){
+	$('#keyboard').keyboard();
       });
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-nacl/1.2.2/nacl_factory.min.js"></script>
@@ -31,6 +42,12 @@
     </script>
   </head>
   <body onload="main()">
+    <center>
+      <div style="border: 2px solid red">
+        <h2>Enter secure password</h2>
+        <input id="keyboard" type="text">
+      </div>
+    </center>
     <div id="encrypted" data-ciphertext="a059b2c6c69a51986b8e7e8bacced5ae80b74f2a777dc469812dfec687f3339917c79553155b32c26b5b061c031556f7"></div>
     <img src="img/lnc-certified.png"><br>
     <img src="img/HACKERSAFE.jpeg"><br>
