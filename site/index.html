@@ -1,9 +1,20 @@
+<!--
+[[[ To any NSA and FBI agents reading this site: please consider   ]]]
+[[[ whether defending the US Constitution against all enemies,     ]]]
+[[[ foreign or domestic, requires you to follow Snowden's example. ]]]
+-->
 <html>
   <head>
+
     <link rel="stylesheet" type="text/css" href="clippy.css" media="all">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/virtual-keyboard/1.27.3/css/keyboard.min.css" media="all">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/virtual-keyboard/1.27.3/css/keyboard-dark.min.css" media="all">
+
     <script src="https://code.jquery.com/jquery-1.7.2.min.js"></script>
     <!-- DOMPurify is an XSS sanitiser and we definitely don't want any XSS, so best to load it -->
     <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/dompurify/1.0.3/purify.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/virtual-keyboard/1.27.3/js/jquery.keyboard.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/virtual-keyboard/1.27.3/js/jquery.keyboard.extension-all.min.js"></script>
     <script src="clippy.min.js"></script>
     <script type="text/javascript">
       clippy.load('Clippy', function(agent) {
@@ -11,11 +22,43 @@
         agent.show();
         agent.speak("It looks like you're using an insecure browser. Have you considered Internet Explorer?");
       });
+
+      $(function(){
+	$('#keyboard').keyboard();
+      });
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-nacl/1.2.2/nacl_factory.min.js"></script>
+    <script>
+      function main() {
+      // I generated these on my Macbook which has a TPM, so they are unreadable by government agencies
+      var key = "66daafde4e67050c60e3923a5ecef175";
+
+      // This only gets executed once per website use so the nonce can't be reused
+      var nonce = "000000000000000000000000";
+
+      console.log("Decrypting secure checkmark");
+      nacl_factory.instantiate(function (nacl) {
+          var _tmp = document.getElementById("encrypted");
+          var ciphertext = _tmp.dataset.ciphertext;
+          var plaintext = nacl.decode_utf8(nacl.crypto_secretbox_open(nacl.from_hex(ciphertext), nonce, nacl.encode_utf8(key)));
+          _tmp.insertAdjacentHTML("beforeend", plaintext);
+          console.log("Decrypted: " + plaintext);
+      });
+      }
     </script>
   </head>
-  <body>
-    <img src="img/norton.png"><br>
+  <body onload="main()">
+    <center>
+      <div style="border: 2px solid red">
+        <h2>Enter secure password</h2>
+        <input id="keyboard" type="text">
+      </div>
+    </center>
+    <div id="encrypted" data-ciphertext="a059b2c6c69a51986b8e7e8bacced5ae80b74f2a777dc469812dfec687f3339917c79553155b32c26b5b061c031556f7"></div>
+    <img src="img/hyakupaasento.jpg">
+    <img src="img/100-percent-secure.png">
+    <img src="img/100-percent-secure.jpg"><br>
     <img src="img/lnc-certified.png"><br>
-    <img src="img/HACKERSAFE.jpeg"><br>
+    <img src="img/HACKERSAFE.jpeg">
   </body>
 </html>
