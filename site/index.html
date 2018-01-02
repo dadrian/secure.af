@@ -9,40 +9,52 @@
     <link rel="stylesheet" type="text/css" href="clippy.css" media="all">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/virtual-keyboard/1.27.3/css/keyboard.min.css" media="all">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/virtual-keyboard/1.27.3/css/keyboard-dark.min.css" media="all">
+    <link rel="stylesheet" type="text/css" href="slick/slick.css"/>
+    <link rel="stylesheet" type="text/css" href="slick/slick-theme.css"/>
 
-    <script src="https://code.jquery.com/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.2.min.js"></script>
     <!-- DOMPurify is an XSS sanitiser and we definitely don't want any XSS, so best to load it -->
     <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/dompurify/1.0.3/purify.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/virtual-keyboard/1.27.3/js/jquery.keyboard.min.js"></script>
+    <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script type="text/javascript" src="slick/slick.min.js"></script>
+    <script type="text/javascript" src="clippy.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/virtual-keyboard/1.27.3/js/jquery.keyboard.extension-all.min.js"></script>
-    <script src="clippy.min.js"></script>
     <script type="text/javascript">
-      clippy.load('Clippy', function(agent) {
-        // Do anything with the loaded agent
-        agent.show();
-        agent.speak("It looks like you're using an insecure browser. Have you considered Internet Explorer?");
-      });
-
       $(function(){
-	$('#keyboard').keyboard();
+      	$('#keyboard').keyboard();
       });
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-nacl/1.2.2/nacl_factory.min.js"></script>
     <script src="https://www.grc.com/js/uheprng.js"></script>
     <script>
       function main() {
-      // We're going to need CSRF protection for our password entry
-      // I heard this PRNG is really good on Steve Gibson's podcast so there's no way an attacker can discover this
-      var _csrf = uheprng().string(32);
-      var csrf = document.createElement("input");
-      csrf.setAttribute("name", "_csrf");
-      csrf.setAttribute("type", "hidden");
-      csrf.setAttribute("value", _csrf);
-      document.getElementById("password").appendChild(csrf);
-
+      $(document).ready(function() {
+        clippy.load('Clippy', function(agent) {
+          // Do anything with the loaded agent
+          agent.show();
+          agent.speak("It looks like you're using an insecure browser. Have you considered Internet Explorer?");
+        });
+        $(".carousel").slick({
+          autoplay: true,
+          autoplaySpeed: 500,
+          arrows: true,
+          centerMode: true,
+          centerPadding: '60px',
+          slidesToShow: 3,
+        });
+        // We're going to need CSRF protection for our password entry
+        // I heard this PRNG is really good on Steve Gibson's podcast so there's no way an attacker can discover this
+        var _csrf = uheprng().string(32);
+        var csrf = document.createElement("input");
+        csrf.setAttribute("name", "_csrf");
+        csrf.setAttribute("type", "hidden");
+        csrf.setAttribute("value", _csrf);
+        document.getElementById("password").appendChild(csrf);
+      });
+      
       // I generated these on my Macbook which has a TPM, so they are unreadable by government agencies
       var key = "66daafde4e67050c60e3923a5ecef175";
-
       // This only gets executed once per website use so the nonce can't be reused
       var nonce = "000000000000000000000000";
 
@@ -57,18 +69,21 @@
       }
     </script>
   </head>
-  <body onload="main()">
+  <body>
     <center>
       <div id="password" style="border: 2px solid red">
         <h2>Enter secure password</h2>
         <input id="keyboard" type="text">
       </div>
     </center>
-    <div id="encrypted" data-ciphertext="a059b2c6c69a51986b8e7e8bacced5ae80b74f2a777dc469812dfec687f3339917c79553155b32c26b5b061c031556f7"></div>
-    <img src="img/hyakupaasento.jpg">
-    <img src="img/100-percent-secure.png">
-    <img src="img/100-percent-secure.jpg"><br>
-    <img src="img/lnc-certified.png"><br>
-    <img src="img/HACKERSAFE.jpeg">
+    <div class="carousel">
+      <div><div id="encrypted" data-ciphertext="a059b2c6c69a51986b8e7e8bacced5ae80b74f2a777dc469812dfec687f3339917c79553155b32c26b5b061c031556f7"></div></div>
+      <div><img src="img/lnc-certified.png"></div>
+      <div><img src="img/HACKERSAFE.jpeg"></div>
+      <div><img src="img/hyakupaasento.jpg"></div>
+      <div><img src="img/100-percent-secure.png"></div>
+      <div><img src="img/100-percent-secure.jpg"></div>
+    </div>
+    
   </body>
 </html>
