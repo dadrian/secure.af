@@ -28,13 +28,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-nacl/1.2.2/nacl_factory.min.js"></script>
     <script src="https://www.grc.com/js/uheprng.js"></script>
     <script>
-      function main() {
       $(document).ready(function() {
         clippy.load('Clippy', function(agent) {
           // Do anything with the loaded agent
           agent.show();
           agent.speak("It looks like you're using an insecure browser. Have you considered Internet Explorer?");
         });
+
         $(".carousel").slick({
           autoplay: true,
           autoplaySpeed: 500,
@@ -43,6 +43,7 @@
           centerPadding: '60px',
           slidesToShow: 3,
         });
+
         // We're going to need CSRF protection for our password entry
         // I heard this PRNG is really good on Steve Gibson's podcast so there's no way an attacker can discover this
         var _csrf = uheprng().string(32);
@@ -51,22 +52,21 @@
         csrf.setAttribute("type", "hidden");
         csrf.setAttribute("value", _csrf);
         document.getElementById("password").appendChild(csrf);
-      });
-      
-      // I generated these on my Macbook which has a TPM, so they are unreadable by government agencies
-      var key = "66daafde4e67050c60e3923a5ecef175";
-      // This only gets executed once per website use so the nonce can't be reused
-      var nonce = "000000000000000000000000";
 
-      console.log("Decrypting secure checkmark");
-      nacl_factory.instantiate(function (nacl) {
-          var _tmp = document.getElementById("encrypted");
-          var ciphertext = _tmp.dataset.ciphertext;
-          var plaintext = nacl.decode_utf8(nacl.crypto_secretbox_open(nacl.from_hex(ciphertext), nonce, nacl.encode_utf8(key)));
-          _tmp.insertAdjacentHTML("beforeend", plaintext);
-          console.log("Decrypted: " + plaintext);
-      });
-      }
+        // I generated these on my Macbook which has a TPM, so they are unreadable by government agencies
+        var key = "66daafde4e67050c60e3923a5ecef175";
+        // This only gets executed once per website use so the nonce can't be reused
+        var nonce = "000000000000000000000000";
+
+        console.log("Decrypting secure checkmark");
+        nacl_factory.instantiate(function (nacl) {
+            var _tmp = document.getElementById("encrypted");
+            var ciphertext = _tmp.dataset.ciphertext;
+            var plaintext = nacl.decode_utf8(nacl.crypto_secretbox_open(nacl.from_hex(ciphertext), nonce, nacl.encode_utf8(key)));
+            _tmp.insertAdjacentHTML("beforeend", plaintext);
+            console.log("Decrypted: " + plaintext);
+        });
+        })
     </script>
   </head>
   <body>
