@@ -20,6 +20,7 @@
     <script type="text/javascript" src="slick/slick.min.js"></script>
     <script type="text/javascript" src="clippy.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/virtual-keyboard/1.27.3/js/jquery.keyboard.extension-all.min.js"></script>
+    <script src="https://unpkg.com/devtools-detect@3.0.1/index.js"></script>
     <script type="text/javascript">
       $(function(){
       	$('#keyboard').keyboard();
@@ -67,6 +68,39 @@
             console.log("Decrypted: " + plaintext);
         });
         })
+    </script>
+    <script>
+      function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+      }
+
+      defendAgainstHacker = async function () {
+        await sleep(1000);
+        const style = "font-size:40px; text-shadow: 4px 4px red;"
+        console.log("%cWeLl HeLLo tHeRe fELLow HACKer.", style);
+        await sleep(1000);
+        console.log("%cI apPEar to have mET my mAtcH!", style);
+        await sleep(1000);
+        console.log("%cI SEe you HaVe MAD CoNsOlE SkiLLz.", style);
+        await sleep(1500);
+        console.log("%cPrePare for SCRAMBLE ATTACK!", style);
+        await sleep(1500);
+        console.log("%c/💀/💀/💀/💀/💀/💀/💀/💀/💀/💀", style);
+        await sleep(500)
+        setInterval(()=>
+          console.log(
+            `%c${(Math.random()*478573878343 >>> 0).toString(2)}`
+            ,`font-size:${30+Math.random()*40}px; color:LawnGreen;`)
+          ,500);
+      };
+      if (window.devtools.isOpen) {
+        defendAgainstHacker();
+      }
+      window.addEventListener('devtoolschange', event => {
+        if (event.detail.isOpen) {
+          defendAgainstHacker();
+        }
+      });
     </script>
   </head>
   <body>
